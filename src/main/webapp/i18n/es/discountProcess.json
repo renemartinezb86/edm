@@ -1,0 +1,25 @@
+{
+    "edmApp": {
+        "discountProcess": {
+            "home": {
+                "title": "Discount Processes",
+                "createLabel": "Crear nuevo Discount Process",
+                "createOrEditLabel": "Crear o editar Discount Process",
+                "search": "Search for Discount Process"
+            },
+            "created": "Un nuevo Discount Process ha sido creado con el identificador {{ param }}",
+            "updated": "Un Discount Process ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Discount Process ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Discount Process {{ id }}?"
+            },
+            "detail": {
+                "title": "Discount Process"
+            },
+            "quantity": "Quantity",
+            "dateToProcess": "Date To Process",
+            "createdDate": "Created Date",
+            "sqlFilePath": "Sql File Path"
+        }
+    }
+}

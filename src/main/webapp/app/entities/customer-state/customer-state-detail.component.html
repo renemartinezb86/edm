@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customerState">
+            <h2><span jhiTranslate="edmApp.customerState.detail.title">Customer State</span> {{customerState.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="edmApp.customerState.rut">Rut</span></dt>
+                <dd>
+                    <span>{{customerState.rut}}</span>
+                </dd>
+                <dt><span jhiTranslate="edmApp.customerState.active">Active</span></dt>
+                <dd>
+                    <span>{{customerState.active}}</span>
+                </dd>
+                <dt><span jhiTranslate="edmApp.customerState.blackList">Black List</span></dt>
+                <dd>
+                    <span>{{customerState.blackList}}</span>
+                </dd>
+                <dt><span jhiTranslate="edmApp.customerState.whiteList">White List</span></dt>
+                <dd>
+                    <span>{{customerState.whiteList}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/customer-state', customerState.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

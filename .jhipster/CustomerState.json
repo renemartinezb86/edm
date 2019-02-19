@@ -1,0 +1,31 @@
+{
+    "name": "CustomerState",
+    "fields": [
+        {
+            "fieldName": "rut",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "blackList",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "whiteList",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190219005543",
+    "entityTableName": "customer_state",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
