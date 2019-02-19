@@ -34,6 +34,7 @@
             <th jhiSortBy="dateToProcess"><span jhiTranslate="edmApp.discountProcess.dateToProcess">Date To Process</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="createdDate"><span jhiTranslate="edmApp.discountProcess.createdDate">Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="sqlFilePath"><span jhiTranslate="edmApp.discountProcess.sqlFilePath">Sql File Path</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="environment.name"><span jhiTranslate="edmApp.discountProcess.environment">Environment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -44,6 +45,11 @@
                 <td>{{discountProcess.dateToProcess | date:'medium'}}</td>
                 <td>{{discountProcess.createdDate | date:'medium'}}</td>
                 <td>{{discountProcess.sqlFilePath}}</td>
+                <td>
+                    <div *ngIf="discountProcess.environment">
+                        <a [routerLink]="['../environment', discountProcess.environment?.id, 'view' ]" >{{discountProcess.environment?.name}}</a>
+                    </div>
+                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -30,13 +30,6 @@
                         [(ngModel)]="environment.pass" />
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="edmApp.environment.discountProcess" for="field_discountProcess">Discount Process</label>
-                    <select class="form-control" id="field_discountProcess" name="discountProcess" [(ngModel)]="environment.discountProcess" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="discountProcessOption.id === environment.discountProcess?.id ? environment.discountProcess : discountProcessOption" *ngFor="let discountProcessOption of discountprocesses; trackBy: trackDiscountProcessById">{{discountProcessOption.id}}</option>
-                    </select>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
