@@ -1,6 +1,7 @@
 package com.ericsson.dev.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -32,6 +33,11 @@ public class Environment implements Serializable {
 
     @Field("pass")
     private String pass;
+
+    @DBRef
+    @Field("discountProcess")
+    @JsonIgnoreProperties("environments")
+    private DiscountProcess discountProcess;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -92,6 +98,19 @@ public class Environment implements Serializable {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public DiscountProcess getDiscountProcess() {
+        return discountProcess;
+    }
+
+    public Environment discountProcess(DiscountProcess discountProcess) {
+        this.discountProcess = discountProcess;
+        return this;
+    }
+
+    public void setDiscountProcess(DiscountProcess discountProcess) {
+        this.discountProcess = discountProcess;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

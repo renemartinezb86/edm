@@ -15,6 +15,16 @@
                         [(ngModel)]="customerState.rut" />
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.contrato" for="field_contrato">Contrato</label>
+                    <input type="text" class="form-control" name="contrato" id="field_contrato"
+                        [(ngModel)]="customerState.contrato" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.cuenta" for="field_cuenta">Cuenta</label>
+                    <input type="text" class="form-control" name="cuenta" id="field_cuenta"
+                        [(ngModel)]="customerState.cuenta" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="edmApp.customerState.blackList" for="field_blackList">Black List</label>
                     <input type="checkbox" class="form-control" name="blackList" id="field_blackList"
                         [(ngModel)]="customerState.blackList" />

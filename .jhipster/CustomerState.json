@@ -6,6 +6,14 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "contrato",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuenta",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "blackList",
             "fieldType": "Boolean"
         },

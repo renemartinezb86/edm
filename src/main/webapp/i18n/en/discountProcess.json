@@ -19,7 +19,8 @@
             "quantity": "Quantity",
             "dateToProcess": "Date To Process",
             "createdDate": "Created Date",
-            "sqlFilePath": "Sql File Path"
+            "sqlFilePath": "Sql File Path",
+            "environment": "Environment"
         }
     }
 }

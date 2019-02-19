@@ -21,7 +21,7 @@ describe('Service Tests', () => {
             service = injector.get(CustomerStateService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new CustomerState('ID', 'AAAAAAA', false, false);
+            elemDefault = new CustomerState('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false, false);
         });
 
         describe('Service methods', async () => {
@@ -56,6 +56,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         rut: 'BBBBBB',
+                        contrato: 'BBBBBB',
+                        cuenta: 'BBBBBB',
                         blackList: true,
                         whiteList: true
                     },
@@ -75,6 +77,8 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         rut: 'BBBBBB',
+                        contrato: 'BBBBBB',
+                        cuenta: 'BBBBBB',
                         blackList: true,
                         whiteList: true
                     },
