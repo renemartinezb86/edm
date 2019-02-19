@@ -31,6 +31,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="rut"><span jhiTranslate="edmApp.customerState.rut">Rut</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="contrato"><span jhiTranslate="edmApp.customerState.contrato">Contrato</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cuenta"><span jhiTranslate="edmApp.customerState.cuenta">Cuenta</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="blackList"><span jhiTranslate="edmApp.customerState.blackList">Black List</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="whiteList"><span jhiTranslate="edmApp.customerState.whiteList">White List</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -40,6 +42,8 @@
             <tr *ngFor="let customerState of customerStates ;trackBy: trackId">
                 <td><a [routerLink]="['/customer-state', customerState.id, 'view' ]">{{customerState.id}}</a></td>
                 <td>{{customerState.rut}}</td>
+                <td>{{customerState.contrato}}</td>
+                <td>{{customerState.cuenta}}</td>
                 <td>{{customerState.blackList}}</td>
                 <td>{{customerState.whiteList}}</td>
                 <td class="text-right">

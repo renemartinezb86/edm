@@ -19,7 +19,8 @@
             "name": "Name",
             "url": "Url",
             "user": "User",
-            "pass": "Pass"
+            "pass": "Pass",
+            "discountProcess": "Discount Process"
         }
     }
 }

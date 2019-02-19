@@ -24,6 +24,12 @@ public class CustomerState implements Serializable {
     @Field("rut")
     private String rut;
 
+    @Field("contrato")
+    private String contrato;
+
+    @Field("cuenta")
+    private String cuenta;
+
     @Field("black_list")
     private Boolean blackList;
 
@@ -50,6 +56,32 @@ public class CustomerState implements Serializable {
 
     public void setRut(String rut) {
         this.rut = rut;
+    }
+
+    public String getContrato() {
+        return contrato;
+    }
+
+    public CustomerState contrato(String contrato) {
+        this.contrato = contrato;
+        return this;
+    }
+
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
+    }
+
+    public String getCuenta() {
+        return cuenta;
+    }
+
+    public CustomerState cuenta(String cuenta) {
+        this.cuenta = cuenta;
+        return this;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
     }
 
     public Boolean isBlackList() {
@@ -104,6 +136,8 @@ public class CustomerState implements Serializable {
         return "CustomerState{" +
             "id=" + getId() +
             ", rut='" + getRut() + "'" +
+            ", contrato='" + getContrato() + "'" +
+            ", cuenta='" + getCuenta() + "'" +
             ", blackList='" + isBlackList() + "'" +
             ", whiteList='" + isWhiteList() + "'" +
             "}";
