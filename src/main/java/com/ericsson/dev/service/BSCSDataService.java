@@ -62,7 +62,7 @@ public class BSCSDataService implements InitializingBean {
         try {
             PreparedStatement ps = oracleConnection.getConnection().prepareStatement(query);
             ResultSet rs = ps.executeQuery();
-            HashMap result = resultSetToHashMap(rs, "RUT");
+            HashMap result = resultSetToHashMap(rs, "CUENTA");
             ps.close();
             return result;
         } catch (Exception e) {

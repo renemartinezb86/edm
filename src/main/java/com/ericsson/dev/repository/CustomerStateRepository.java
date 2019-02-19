@@ -14,6 +14,7 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface CustomerStateRepository extends MongoRepository<CustomerState, String> {
-    Optional<CustomerState> findByRutAndBlackListFalse(String rut);
-    Optional<CustomerState> findByRutAndWhiteListTrue(String rut);
+    Optional<CustomerState> findByCuentaAndBlackListFalse(String cuenta);
+
+    Optional<CustomerState> findByCuentaAndWhiteListTrue(String cuenta);
 }

@@ -5,6 +5,25 @@ import java.util.Comparator;
 public class Discounts {
     private String planName;
     private String rut;
+    private String cuenta;
+
+    public String getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(String cuenta) {
+        this.cuenta = cuenta;
+    }
+
+    public String getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
+    }
+
+    private String contrato;
     private int position;
     private double price;
     private double percentage;
@@ -38,7 +57,7 @@ public class Discounts {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

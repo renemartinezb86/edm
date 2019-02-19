@@ -48,7 +48,6 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
     public DiscountProcessServiceImpl(DiscountProcessRepository discountProcessRepository, DiscountProcessSearchRepository discountProcessSearchRepository) {
         this.discountProcessRepository = discountProcessRepository;
         this.discountProcessSearchRepository = discountProcessSearchRepository;
-        customerPlans = bscsDataService.getCustomerPlans();
     }
 
     /**
@@ -66,11 +65,14 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
     }
 
     public List<String> getDiscountsSQL(DiscountProcess discountProcess) {
+        if (customerPlans == null) {
+            customerPlans = bscsDataService.getCustomerPlans();
+        }
         List<String> discountSQLs = new ArrayList<>();
-        for (String rut : customerPlans.keySet()) {
-            List<Discounts> discountsList = getPlansToDiscount(rut);
+        for (String cuenta : customerPlans.keySet()) {
+            List<Discounts> discountsList = getPlansToDiscount(cuenta);
             discountsList.sort(new Discounts.SortByPrice());
-            if (!customerStateRepository.findByRutAndWhiteListTrue(rut).isPresent()) {
+            if (!customerStateRepository.findByCuentaAndWhiteListTrue(cuenta).isPresent()) {
                 discountsList = discountsList.subList(0, discountProcess.getQuantity());
             }
             for (Discounts discount : discountsList) {
@@ -83,20 +85,23 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
 
     public List<String> generateCustomerDiscounts(List<Discounts> discountsList) {
         List<String> discountSQLs = new ArrayList<>();
+        for (Discounts discounts : discountsList) {
+
+        }
         String singleDiscount = "";
         discountSQLs.add(singleDiscount);
         return discountSQLs;
     }
 
-    public List<Discounts> getPlansToDiscount(String rut) {
+    public List<Discounts> getPlansToDiscount(String cuenta) {
         List<Discounts> result = new ArrayList<>();
-        if (customerStateRepository.findByRutAndBlackListFalse(rut).isPresent()) {
-            List<HashMap> plans = customerPlans.get(rut);
+        if (customerStateRepository.findByCuentaAndBlackListFalse(cuenta).isPresent()) {
+            List<HashMap> plans = customerPlans.get(cuenta);
             for (HashMap planInfo : plans) {
                 Discounts discounts = new Discounts();
-                discounts.setRut(rut);
-                discounts.setPlanName(planInfo.get("plan").toString());
-                discounts.setPrice(Float.parseFloat(planInfo.get("price").toString()));
+                discounts.setCuenta(cuenta);
+                discounts.setPlanName(planInfo.get("NOMBRE_PLANO").toString());
+                discounts.setPrice(Float.parseFloat(planInfo.get("PRECIO_MESUAL").toString()));
             }
         }
         return result;
