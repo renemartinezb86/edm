@@ -21,6 +21,12 @@
                 <dd>
                     <span>{{discountProcess.sqlFilePath}}</span>
                 </dd>
+                <dt><span jhiTranslate="edmApp.discountProcess.environment">Environment</span></dt>
+                <dd>
+                    <div *ngIf="discountProcess.environment">
+                        <a [routerLink]="['/environment', discountProcess.environment?.id, 'view']">{{discountProcess.environment?.name}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

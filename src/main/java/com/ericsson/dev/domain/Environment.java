@@ -1,13 +1,15 @@
 package com.ericsson.dev.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -36,9 +38,7 @@ public class Environment implements Serializable {
 
     @DBRef
     @Field("discountProcess")
-    @JsonIgnoreProperties("environments")
-    private DiscountProcess discountProcess;
-
+    private Set<DiscountProcess> discountProcesses = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -100,17 +100,29 @@ public class Environment implements Serializable {
         this.pass = pass;
     }
 
-    public DiscountProcess getDiscountProcess() {
-        return discountProcess;
+    public Set<DiscountProcess> getDiscountProcesses() {
+        return discountProcesses;
     }
 
-    public Environment discountProcess(DiscountProcess discountProcess) {
-        this.discountProcess = discountProcess;
+    public Environment discountProcesses(Set<DiscountProcess> discountProcesses) {
+        this.discountProcesses = discountProcesses;
         return this;
     }
 
-    public void setDiscountProcess(DiscountProcess discountProcess) {
-        this.discountProcess = discountProcess;
+    public Environment addDiscountProcess(DiscountProcess discountProcess) {
+        this.discountProcesses.add(discountProcess);
+        discountProcess.setEnvironment(this);
+        return this;
+    }
+
+    public Environment removeDiscountProcess(DiscountProcess discountProcess) {
+        this.discountProcesses.remove(discountProcess);
+        discountProcess.setEnvironment(null);
+        return this;
+    }
+
+    public void setDiscountProcesses(Set<DiscountProcess> discountProcesses) {
+        this.discountProcesses = discountProcesses;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -5,8 +5,11 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
 import { IDiscountProcess } from 'app/shared/model/discount-process.model';
 import { DiscountProcessService } from './discount-process.service';
+import { IEnvironment } from 'app/shared/model/environment.model';
+import { EnvironmentService } from 'app/entities/environment';
 
 @Component({
     selector: 'jhi-discount-process-update',
@@ -15,10 +18,17 @@ import { DiscountProcessService } from './discount-process.service';
 export class DiscountProcessUpdateComponent implements OnInit {
     discountProcess: IDiscountProcess;
     isSaving: boolean;
+
+    environments: IEnvironment[];
     dateToProcess: string;
     createdDate: string;
 
-    constructor(protected discountProcessService: DiscountProcessService, protected activatedRoute: ActivatedRoute) {}
+    constructor(
+        protected jhiAlertService: JhiAlertService,
+        protected discountProcessService: DiscountProcessService,
+        protected environmentService: EnvironmentService,
+        protected activatedRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
@@ -28,6 +38,13 @@ export class DiscountProcessUpdateComponent implements OnInit {
                 this.discountProcess.dateToProcess != null ? this.discountProcess.dateToProcess.format(DATE_TIME_FORMAT) : null;
             this.createdDate = this.discountProcess.createdDate != null ? this.discountProcess.createdDate.format(DATE_TIME_FORMAT) : null;
         });
+        this.environmentService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IEnvironment[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IEnvironment[]>) => response.body)
+            )
+            .subscribe((res: IEnvironment[]) => (this.environments = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -56,5 +73,13 @@ export class DiscountProcessUpdateComponent implements OnInit {
 
     protected onSaveError() {
         this.isSaving = false;
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    trackEnvironmentById(index: number, item: IEnvironment) {
+        return item.id;
     }
 }

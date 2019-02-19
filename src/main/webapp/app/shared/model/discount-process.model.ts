@@ -7,7 +7,7 @@ export interface IDiscountProcess {
     dateToProcess?: Moment;
     createdDate?: Moment;
     sqlFilePath?: string;
-    environments?: IEnvironment[];
+    environment?: IEnvironment;
 }
 
 export class DiscountProcess implements IDiscountProcess {
@@ -17,6 +17,6 @@ export class DiscountProcess implements IDiscountProcess {
         public dateToProcess?: Moment,
         public createdDate?: Moment,
         public sqlFilePath?: string,
-        public environments?: IEnvironment[]
+        public environment?: IEnvironment
     ) {}
 }

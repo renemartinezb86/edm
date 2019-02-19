@@ -6,7 +6,7 @@ export interface IEnvironment {
     url?: string;
     user?: string;
     pass?: string;
-    discountProcess?: IDiscountProcess;
+    discountProcesses?: IDiscountProcess[];
 }
 
 export class Environment implements IEnvironment {
@@ -16,6 +16,6 @@ export class Environment implements IEnvironment {
         public url?: string,
         public user?: string,
         public pass?: string,
-        public discountProcess?: IDiscountProcess
+        public discountProcesses?: IDiscountProcess[]
     ) {}
 }

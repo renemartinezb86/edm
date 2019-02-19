@@ -21,12 +21,6 @@
                 <dd>
                     <span>{{environment.pass}}</span>
                 </dd>
-                <dt><span jhiTranslate="edmApp.environment.discountProcess">Discount Process</span></dt>
-                <dd>
-                    <div *ngIf="environment.discountProcess">
-                        <a [routerLink]="['/discount-process', environment.discountProcess?.id, 'view']">{{environment.discountProcess?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

@@ -34,7 +34,6 @@
             <th jhiSortBy="url"><span jhiTranslate="edmApp.environment.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="user"><span jhiTranslate="edmApp.environment.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="pass"><span jhiTranslate="edmApp.environment.pass">Pass</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="discountProcess.id"><span jhiTranslate="edmApp.environment.discountProcess">Discount Process</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -45,11 +44,6 @@
                 <td>{{environment.url}}</td>
                 <td>{{environment.user}}</td>
                 <td>{{environment.pass}}</td>
-                <td>
-                    <div *ngIf="environment.discountProcess">
-                        <a [routerLink]="['../discount-process', environment.discountProcess?.id, 'view' ]" >{{environment.discountProcess?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

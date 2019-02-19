@@ -34,6 +34,13 @@
                         [(ngModel)]="discountProcess.sqlFilePath" />
                 </div>
 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.discountProcess.environment" for="field_environment">Environment</label>
+                    <select class="form-control" id="field_environment" name="environment" [(ngModel)]="discountProcess.environment" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="environmentOption.id === discountProcess.environment?.id ? discountProcess.environment : environmentOption" *ngFor="let environmentOption of environments; trackBy: trackEnvironmentById">{{environmentOption.name}}</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

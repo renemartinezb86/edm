@@ -20,9 +20,10 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
+            "relationshipType": "many-to-one",
             "relationshipName": "environment",
             "otherEntityName": "environment",
+            "otherEntityField": "name",
             "otherEntityRelationshipName": "discountProcess"
         }
     ],
