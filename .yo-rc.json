@@ -1,0 +1,44 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "gitCompany": "",
+    "baseName": "EDM",
+    "packageName": "com.ericsson.dev",
+    "packageFolder": "com/ericsson/dev",
+    "serverPort": 8080,
+    "serviceDiscoveryType": false,
+    "authenticationType": "jwt",
+    "uaaBaseName": "../uaa",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": "elasticsearch",
+    "enableSwaggerCodegen": false,
+    "messageBroker": false,
+    "buildTool": "maven",
+    "useSass": false,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "cucumber"
+    ],
+    "enableTranslation": true,
+    "nativeLanguage": "es",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "clientFramework": "angularX",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "5.8.1",
+    "jwtSecretKey": "OTNjNjg0M2RlNzU1YmM5NDk5MmY1NjA0NDFjZmE0YzE5NDY2ZmY5MDJkYTA1NzI2OTNkNmViZDI1NzkzYmRiNDc1MzZmMmZlZjI2MGMyNjMyNTRlMTUwNjExNThlMThmMzA2MjM5MmY0N2Y4MzIxNzc3ZjE2ZTY0MGIyODhlM2E=",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
+  },
+  "git-provider": "GitHub",
+  "git-company": "renemartinezb86",
+  "repository-name": "edm"
+}
