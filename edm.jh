@@ -28,7 +28,7 @@ entity PlanDiscount {
 }
 
 relationship OneToMany {
-	DiscountProcess{environment(name)} to Environment{discountProcess}
+	Environment{discountProcess} to DiscountProcess{environment(name)}
 }
 
 service all with serviceImpl
