@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 
 /**
  * Spring Data MongoDB repository for the CustomerState entity.
@@ -12,5 +14,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface CustomerStateRepository extends MongoRepository<CustomerState, String> {
-
+    Optional<CustomerState> findByRutAndBlackListFalse(String rut);
+    Optional<CustomerState> findByRutAndWhiteListTrue(String rut);
 }
