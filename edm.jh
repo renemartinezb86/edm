@@ -14,6 +14,8 @@ entity DiscountProcess {
 
 entity CustomerState {
 	rut String,
+    contrato String,
+    cuenta String,
     blackList Boolean,
     whiteList Boolean
 }
@@ -23,6 +25,10 @@ entity PlanDiscount {
     position Integer,
     discountPercentage Double,
     active Boolean
+}
+
+relationship OneToMany {
+	DiscountProcess{environment(name)} to Environment{discountProcess}
 }
 
 service all with serviceImpl

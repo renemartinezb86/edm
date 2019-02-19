@@ -48,6 +48,12 @@ public class CustomerStateResourceIntTest {
     private static final String DEFAULT_RUT = "AAAAAAAAAA";
     private static final String UPDATED_RUT = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CONTRATO = "AAAAAAAAAA";
+    private static final String UPDATED_CONTRATO = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CUENTA = "AAAAAAAAAA";
+    private static final String UPDATED_CUENTA = "BBBBBBBBBB";
+
     private static final Boolean DEFAULT_BLACK_LIST = false;
     private static final Boolean UPDATED_BLACK_LIST = true;
 
@@ -105,6 +111,8 @@ public class CustomerStateResourceIntTest {
     public static CustomerState createEntity() {
         CustomerState customerState = new CustomerState()
             .rut(DEFAULT_RUT)
+            .contrato(DEFAULT_CONTRATO)
+            .cuenta(DEFAULT_CUENTA)
             .blackList(DEFAULT_BLACK_LIST)
             .whiteList(DEFAULT_WHITE_LIST);
         return customerState;
@@ -131,6 +139,8 @@ public class CustomerStateResourceIntTest {
         assertThat(customerStateList).hasSize(databaseSizeBeforeCreate + 1);
         CustomerState testCustomerState = customerStateList.get(customerStateList.size() - 1);
         assertThat(testCustomerState.getRut()).isEqualTo(DEFAULT_RUT);
+        assertThat(testCustomerState.getContrato()).isEqualTo(DEFAULT_CONTRATO);
+        assertThat(testCustomerState.getCuenta()).isEqualTo(DEFAULT_CUENTA);
         assertThat(testCustomerState.isBlackList()).isEqualTo(DEFAULT_BLACK_LIST);
         assertThat(testCustomerState.isWhiteList()).isEqualTo(DEFAULT_WHITE_LIST);
 
@@ -170,6 +180,8 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customerState.getId())))
             .andExpect(jsonPath("$.[*].rut").value(hasItem(DEFAULT_RUT.toString())))
+            .andExpect(jsonPath("$.[*].contrato").value(hasItem(DEFAULT_CONTRATO.toString())))
+            .andExpect(jsonPath("$.[*].cuenta").value(hasItem(DEFAULT_CUENTA.toString())))
             .andExpect(jsonPath("$.[*].blackList").value(hasItem(DEFAULT_BLACK_LIST.booleanValue())))
             .andExpect(jsonPath("$.[*].whiteList").value(hasItem(DEFAULT_WHITE_LIST.booleanValue())));
     }
@@ -185,6 +197,8 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customerState.getId()))
             .andExpect(jsonPath("$.rut").value(DEFAULT_RUT.toString()))
+            .andExpect(jsonPath("$.contrato").value(DEFAULT_CONTRATO.toString()))
+            .andExpect(jsonPath("$.cuenta").value(DEFAULT_CUENTA.toString()))
             .andExpect(jsonPath("$.blackList").value(DEFAULT_BLACK_LIST.booleanValue()))
             .andExpect(jsonPath("$.whiteList").value(DEFAULT_WHITE_LIST.booleanValue()));
     }
@@ -209,6 +223,8 @@ public class CustomerStateResourceIntTest {
         CustomerState updatedCustomerState = customerStateRepository.findById(customerState.getId()).get();
         updatedCustomerState
             .rut(UPDATED_RUT)
+            .contrato(UPDATED_CONTRATO)
+            .cuenta(UPDATED_CUENTA)
             .blackList(UPDATED_BLACK_LIST)
             .whiteList(UPDATED_WHITE_LIST);
 
@@ -222,6 +238,8 @@ public class CustomerStateResourceIntTest {
         assertThat(customerStateList).hasSize(databaseSizeBeforeUpdate);
         CustomerState testCustomerState = customerStateList.get(customerStateList.size() - 1);
         assertThat(testCustomerState.getRut()).isEqualTo(UPDATED_RUT);
+        assertThat(testCustomerState.getContrato()).isEqualTo(UPDATED_CONTRATO);
+        assertThat(testCustomerState.getCuenta()).isEqualTo(UPDATED_CUENTA);
         assertThat(testCustomerState.isBlackList()).isEqualTo(UPDATED_BLACK_LIST);
         assertThat(testCustomerState.isWhiteList()).isEqualTo(UPDATED_WHITE_LIST);
 
@@ -281,6 +299,8 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customerState.getId())))
             .andExpect(jsonPath("$.[*].rut").value(hasItem(DEFAULT_RUT)))
+            .andExpect(jsonPath("$.[*].contrato").value(hasItem(DEFAULT_CONTRATO)))
+            .andExpect(jsonPath("$.[*].cuenta").value(hasItem(DEFAULT_CUENTA)))
             .andExpect(jsonPath("$.[*].blackList").value(hasItem(DEFAULT_BLACK_LIST.booleanValue())))
             .andExpect(jsonPath("$.[*].whiteList").value(hasItem(DEFAULT_WHITE_LIST.booleanValue())));
     }

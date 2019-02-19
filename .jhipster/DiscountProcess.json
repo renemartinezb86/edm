@@ -18,7 +18,14 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "environment",
+            "otherEntityName": "environment",
+            "otherEntityRelationshipName": "discountProcess"
+        }
+    ],
     "changelogDate": "20190219005542",
     "entityTableName": "discount_process",
     "dto": "no",

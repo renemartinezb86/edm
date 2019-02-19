@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IEnvironment } from 'app/shared/model/environment.model';
 
 export interface IDiscountProcess {
     id?: string;
@@ -6,6 +7,7 @@ export interface IDiscountProcess {
     dateToProcess?: Moment;
     createdDate?: Moment;
     sqlFilePath?: string;
+    environments?: IEnvironment[];
 }
 
 export class DiscountProcess implements IDiscountProcess {
@@ -14,6 +16,7 @@ export class DiscountProcess implements IDiscountProcess {
         public quantity?: number,
         public dateToProcess?: Moment,
         public createdDate?: Moment,
-        public sqlFilePath?: string
+        public sqlFilePath?: string,
+        public environments?: IEnvironment[]
     ) {}
 }

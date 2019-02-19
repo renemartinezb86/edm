@@ -17,6 +17,8 @@
                 "title": "Customer State"
             },
             "rut": "Rut",
+            "contrato": "Contrato",
+            "cuenta": "Cuenta",
             "blackList": "Black List",
             "whiteList": "White List"
         }
