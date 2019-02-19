@@ -11,6 +11,7 @@
                 "discountProcess": "Discount Process",
                 "customerState": "Customer State",
                 "planDiscount": "Plan Discount",
+                "environment": "Environment",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

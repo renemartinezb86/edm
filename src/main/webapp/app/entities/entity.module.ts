@@ -15,6 +15,22 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'plan-discount',
                 loadChildren: './plan-discount/plan-discount.module#EdmPlanDiscountModule'
+            },
+            {
+                path: 'environment',
+                loadChildren: './environment/environment.module#EdmEnvironmentModule'
+            },
+            {
+                path: 'discount-process',
+                loadChildren: './discount-process/discount-process.module#EdmDiscountProcessModule'
+            },
+            {
+                path: 'customer-state',
+                loadChildren: './customer-state/customer-state.module#EdmCustomerStateModule'
+            },
+            {
+                path: 'plan-discount',
+                loadChildren: './plan-discount/plan-discount.module#EdmPlanDiscountModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

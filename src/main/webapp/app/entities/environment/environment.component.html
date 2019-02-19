@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="edmApp.customerState.home.title">Customer States</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-customer-state" [routerLink]="['/customer-state/new']">
+        <span jhiTranslate="edmApp.environment.home.title">Environments</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-environment" [routerLink]="['/environment/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="edmApp.customerState.home.createLabel">
-            Create new Customer State
+            <span class="hidden-sm-down"  jhiTranslate="edmApp.environment.home.createLabel">
+            Create new Environment
             </span>
         </button>
     </h2>
@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'edmApp.customerState.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'edmApp.environment.home.search' | translate }}">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -25,39 +25,41 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="customerStates">
+    <div class="table-responsive" *ngIf="environments">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="rut"><span jhiTranslate="edmApp.customerState.rut">Rut</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="blackList"><span jhiTranslate="edmApp.customerState.blackList">Black List</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="whiteList"><span jhiTranslate="edmApp.customerState.whiteList">White List</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span jhiTranslate="edmApp.environment.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="url"><span jhiTranslate="edmApp.environment.url">Url</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="user"><span jhiTranslate="edmApp.environment.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="pass"><span jhiTranslate="edmApp.environment.pass">Pass</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let customerState of customerStates ;trackBy: trackId">
-                <td><a [routerLink]="['/customer-state', customerState.id, 'view' ]">{{customerState.id}}</a></td>
-                <td>{{customerState.rut}}</td>
-                <td>{{customerState.blackList}}</td>
-                <td>{{customerState.whiteList}}</td>
+            <tr *ngFor="let environment of environments ;trackBy: trackId">
+                <td><a [routerLink]="['/environment', environment.id, 'view' ]">{{environment.id}}</a></td>
+                <td>{{environment.name}}</td>
+                <td>{{environment.url}}</td>
+                <td>{{environment.user}}</td>
+                <td>{{environment.pass}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['/customer-state', customerState.id, 'view' ]"
+                                [routerLink]="['/environment', environment.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/customer-state', customerState.id, 'edit']"
+                                [routerLink]="['/environment', environment.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', 'customer-state', { outlets: { popup: customerState.id + '/delete'} }]"
+                                [routerLink]="['/', 'environment', { outlets: { popup: environment.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
@@ -71,7 +73,7 @@
         </table>
     </div>
     <!-- Pager is not implemented yet, so this is normal pagination instead -->
-    <div *ngIf="customerStates && customerStates.length">
+    <div *ngIf="environments && environments.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>

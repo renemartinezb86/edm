@@ -1,21 +1,25 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="customerState">
-            <h2><span jhiTranslate="edmApp.customerState.detail.title">Customer State</span> {{customerState.id}}</h2>
+        <div *ngIf="environment">
+            <h2><span jhiTranslate="edmApp.environment.detail.title">Environment</span> {{environment.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="edmApp.customerState.rut">Rut</span></dt>
+                <dt><span jhiTranslate="edmApp.environment.name">Name</span></dt>
                 <dd>
-                    <span>{{customerState.rut}}</span>
+                    <span>{{environment.name}}</span>
                 </dd>
-                <dt><span jhiTranslate="edmApp.customerState.blackList">Black List</span></dt>
+                <dt><span jhiTranslate="edmApp.environment.url">Url</span></dt>
                 <dd>
-                    <span>{{customerState.blackList}}</span>
+                    <span>{{environment.url}}</span>
                 </dd>
-                <dt><span jhiTranslate="edmApp.customerState.whiteList">White List</span></dt>
+                <dt><span jhiTranslate="edmApp.environment.user">User</span></dt>
                 <dd>
-                    <span>{{customerState.whiteList}}</span>
+                    <span>{{environment.user}}</span>
+                </dd>
+                <dt><span jhiTranslate="edmApp.environment.pass">Pass</span></dt>
+                <dd>
+                    <span>{{environment.pass}}</span>
                 </dd>
             </dl>
 
@@ -26,7 +30,7 @@
             </button>
 
             <button type="button"
-                    [routerLink]="['/customer-state', customerState.id, 'edit']"
+                    [routerLink]="['/environment', environment.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
