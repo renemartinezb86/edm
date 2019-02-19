@@ -1,3 +1,10 @@
+entity Environment {
+	name String,
+    url String,
+    user String,
+    pass String
+}
+
 entity DiscountProcess {
 	quantity Integer,
     dateToProcess Instant,
@@ -7,7 +14,6 @@ entity DiscountProcess {
 
 entity CustomerState {
 	rut String,
-    active Boolean,
     blackList Boolean,
     whiteList Boolean
 }
