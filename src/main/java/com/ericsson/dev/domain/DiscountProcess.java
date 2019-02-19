@@ -1,7 +1,7 @@
 package com.ericsson.dev.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -39,7 +37,9 @@ public class DiscountProcess implements Serializable {
 
     @DBRef
     @Field("environment")
-    private Set<Environment> environments = new HashSet<>();
+    @JsonIgnoreProperties("discountProcesses")
+    private Environment environment;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
@@ -101,29 +101,17 @@ public class DiscountProcess implements Serializable {
         this.sqlFilePath = sqlFilePath;
     }
 
-    public Set<Environment> getEnvironments() {
-        return environments;
+    public Environment getEnvironment() {
+        return environment;
     }
 
-    public DiscountProcess environments(Set<Environment> environments) {
-        this.environments = environments;
+    public DiscountProcess environment(Environment environment) {
+        this.environment = environment;
         return this;
     }
 
-    public DiscountProcess addEnvironment(Environment environment) {
-        this.environments.add(environment);
-        environment.setDiscountProcess(this);
-        return this;
-    }
-
-    public DiscountProcess removeEnvironment(Environment environment) {
-        this.environments.remove(environment);
-        environment.setDiscountProcess(null);
-        return this;
-    }
-
-    public void setEnvironments(Set<Environment> environments) {
-        this.environments = environments;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
