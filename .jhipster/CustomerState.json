@@ -6,10 +6,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "active",
-            "fieldType": "Boolean"
-        },
-        {
             "fieldName": "blackList",
             "fieldType": "Boolean"
         },

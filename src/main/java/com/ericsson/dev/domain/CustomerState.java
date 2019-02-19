@@ -24,9 +24,6 @@ public class CustomerState implements Serializable {
     @Field("rut")
     private String rut;
 
-    @Field("active")
-    private Boolean active;
-
     @Field("black_list")
     private Boolean blackList;
 
@@ -53,19 +50,6 @@ public class CustomerState implements Serializable {
 
     public void setRut(String rut) {
         this.rut = rut;
-    }
-
-    public Boolean isActive() {
-        return active;
-    }
-
-    public CustomerState active(Boolean active) {
-        this.active = active;
-        return this;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 
     public Boolean isBlackList() {
@@ -120,7 +104,6 @@ public class CustomerState implements Serializable {
         return "CustomerState{" +
             "id=" + getId() +
             ", rut='" + getRut() + "'" +
-            ", active='" + isActive() + "'" +
             ", blackList='" + isBlackList() + "'" +
             ", whiteList='" + isWhiteList() + "'" +
             "}";

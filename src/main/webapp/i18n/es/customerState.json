@@ -17,7 +17,6 @@
                 "title": "Customer State"
             },
             "rut": "Rut",
-            "active": "Active",
             "blackList": "Black List",
             "whiteList": "White List"
         }

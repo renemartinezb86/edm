@@ -48,9 +48,6 @@ public class CustomerStateResourceIntTest {
     private static final String DEFAULT_RUT = "AAAAAAAAAA";
     private static final String UPDATED_RUT = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_ACTIVE = false;
-    private static final Boolean UPDATED_ACTIVE = true;
-
     private static final Boolean DEFAULT_BLACK_LIST = false;
     private static final Boolean UPDATED_BLACK_LIST = true;
 
@@ -108,7 +105,6 @@ public class CustomerStateResourceIntTest {
     public static CustomerState createEntity() {
         CustomerState customerState = new CustomerState()
             .rut(DEFAULT_RUT)
-            .active(DEFAULT_ACTIVE)
             .blackList(DEFAULT_BLACK_LIST)
             .whiteList(DEFAULT_WHITE_LIST);
         return customerState;
@@ -135,7 +131,6 @@ public class CustomerStateResourceIntTest {
         assertThat(customerStateList).hasSize(databaseSizeBeforeCreate + 1);
         CustomerState testCustomerState = customerStateList.get(customerStateList.size() - 1);
         assertThat(testCustomerState.getRut()).isEqualTo(DEFAULT_RUT);
-        assertThat(testCustomerState.isActive()).isEqualTo(DEFAULT_ACTIVE);
         assertThat(testCustomerState.isBlackList()).isEqualTo(DEFAULT_BLACK_LIST);
         assertThat(testCustomerState.isWhiteList()).isEqualTo(DEFAULT_WHITE_LIST);
 
@@ -175,7 +170,6 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customerState.getId())))
             .andExpect(jsonPath("$.[*].rut").value(hasItem(DEFAULT_RUT.toString())))
-            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].blackList").value(hasItem(DEFAULT_BLACK_LIST.booleanValue())))
             .andExpect(jsonPath("$.[*].whiteList").value(hasItem(DEFAULT_WHITE_LIST.booleanValue())));
     }
@@ -191,7 +185,6 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customerState.getId()))
             .andExpect(jsonPath("$.rut").value(DEFAULT_RUT.toString()))
-            .andExpect(jsonPath("$.active").value(DEFAULT_ACTIVE.booleanValue()))
             .andExpect(jsonPath("$.blackList").value(DEFAULT_BLACK_LIST.booleanValue()))
             .andExpect(jsonPath("$.whiteList").value(DEFAULT_WHITE_LIST.booleanValue()));
     }
@@ -216,7 +209,6 @@ public class CustomerStateResourceIntTest {
         CustomerState updatedCustomerState = customerStateRepository.findById(customerState.getId()).get();
         updatedCustomerState
             .rut(UPDATED_RUT)
-            .active(UPDATED_ACTIVE)
             .blackList(UPDATED_BLACK_LIST)
             .whiteList(UPDATED_WHITE_LIST);
 
@@ -230,7 +222,6 @@ public class CustomerStateResourceIntTest {
         assertThat(customerStateList).hasSize(databaseSizeBeforeUpdate);
         CustomerState testCustomerState = customerStateList.get(customerStateList.size() - 1);
         assertThat(testCustomerState.getRut()).isEqualTo(UPDATED_RUT);
-        assertThat(testCustomerState.isActive()).isEqualTo(UPDATED_ACTIVE);
         assertThat(testCustomerState.isBlackList()).isEqualTo(UPDATED_BLACK_LIST);
         assertThat(testCustomerState.isWhiteList()).isEqualTo(UPDATED_WHITE_LIST);
 
@@ -290,7 +281,6 @@ public class CustomerStateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customerState.getId())))
             .andExpect(jsonPath("$.[*].rut").value(hasItem(DEFAULT_RUT)))
-            .andExpect(jsonPath("$.[*].active").value(hasItem(DEFAULT_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].blackList").value(hasItem(DEFAULT_BLACK_LIST.booleanValue())))
             .andExpect(jsonPath("$.[*].whiteList").value(hasItem(DEFAULT_WHITE_LIST.booleanValue())));
     }

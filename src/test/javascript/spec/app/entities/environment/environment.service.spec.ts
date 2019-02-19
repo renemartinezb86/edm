@@ -4,24 +4,24 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import { CustomerStateService } from 'app/entities/customer-state/customer-state.service';
-import { ICustomerState, CustomerState } from 'app/shared/model/customer-state.model';
+import { EnvironmentService } from 'app/entities/environment/environment.service';
+import { IEnvironment, Environment } from 'app/shared/model/environment.model';
 
 describe('Service Tests', () => {
-    describe('CustomerState Service', () => {
+    describe('Environment Service', () => {
         let injector: TestBed;
-        let service: CustomerStateService;
+        let service: EnvironmentService;
         let httpMock: HttpTestingController;
-        let elemDefault: ICustomerState;
+        let elemDefault: IEnvironment;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
             });
             injector = getTestBed();
-            service = injector.get(CustomerStateService);
+            service = injector.get(EnvironmentService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new CustomerState('ID', 'AAAAAAA', false, false);
+            elemDefault = new Environment('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -36,7 +36,7 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should create a CustomerState', async () => {
+            it('should create a Environment', async () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 'ID'
@@ -45,19 +45,20 @@ describe('Service Tests', () => {
                 );
                 const expected = Object.assign({}, returnedFromService);
                 service
-                    .create(new CustomerState(null))
+                    .create(new Environment(null))
                     .pipe(take(1))
                     .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should update a CustomerState', async () => {
+            it('should update a Environment', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        rut: 'BBBBBB',
-                        blackList: true,
-                        whiteList: true
+                        name: 'BBBBBB',
+                        url: 'BBBBBB',
+                        user: 'BBBBBB',
+                        pass: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -71,12 +72,13 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should return a list of CustomerState', async () => {
+            it('should return a list of Environment', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        rut: 'BBBBBB',
-                        blackList: true,
-                        whiteList: true
+                        name: 'BBBBBB',
+                        url: 'BBBBBB',
+                        user: 'BBBBBB',
+                        pass: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -93,7 +95,7 @@ describe('Service Tests', () => {
                 httpMock.verify();
             });
 
-            it('should delete a CustomerState', async () => {
+            it('should delete a Environment', async () => {
                 const rxPromise = service.delete('123').subscribe(resp => expect(resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });

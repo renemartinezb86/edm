@@ -1,0 +1,25 @@
+{
+    "edmApp": {
+        "environment": {
+            "home": {
+                "title": "Environments",
+                "createLabel": "Crear nuevo Environment",
+                "createOrEditLabel": "Crear o editar Environment",
+                "search": "Search for Environment"
+            },
+            "created": "Un nuevo Environment ha sido creado con el identificador {{ param }}",
+            "updated": "Un Environment ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Environment ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Environment {{ id }}?"
+            },
+            "detail": {
+                "title": "Environment"
+            },
+            "name": "Name",
+            "url": "Url",
+            "user": "User",
+            "pass": "Pass"
+        }
+    }
+}
