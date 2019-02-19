@@ -1,4 +1,5 @@
 package com.ericsson.dev.web.rest;
+
 import com.ericsson.dev.domain.DiscountProcess;
 import com.ericsson.dev.service.DiscountProcessService;
 import com.ericsson.dev.web.rest.errors.BadRequestAlertException;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -53,6 +55,11 @@ public class DiscountProcessResource {
         if (discountProcess.getId() != null) {
             throw new BadRequestAlertException("A new discountProcess cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Instant instant = Instant.now();
+        long timeStampSeconds = instant.getEpochSecond();
+        discountProcess.setCreatedDate(instant);
+        List<String> sqlList = discountProcessService.getDiscountsSQL(discountProcess);
+        String fileName = "DiscountsSQLs_" + instant.toString() + ".sql";
         DiscountProcess result = discountProcessService.save(discountProcess);
         return ResponseEntity.created(new URI("/api/discount-processes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -124,7 +131,7 @@ public class DiscountProcessResource {
      * SEARCH  /_search/discount-processes?query=:query : search for the discountProcess corresponding
      * to the query.
      *
-     * @param query the query of the discountProcess search
+     * @param query    the query of the discountProcess search
      * @param pageable the pagination information
      * @return the result of the search
      */

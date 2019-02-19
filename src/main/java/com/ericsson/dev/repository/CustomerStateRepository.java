@@ -16,5 +16,7 @@ import java.util.Optional;
 public interface CustomerStateRepository extends MongoRepository<CustomerState, String> {
     Optional<CustomerState> findByCuentaAndBlackListFalse(String cuenta);
 
+    Optional<CustomerState> findByCuentaAndBlackListTrue(String cuenta);
+
     Optional<CustomerState> findByCuentaAndWhiteListTrue(String cuenta);
 }

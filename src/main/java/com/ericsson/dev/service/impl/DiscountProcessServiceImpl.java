@@ -7,6 +7,7 @@ import com.ericsson.dev.service.DiscountProcessService;
 import com.ericsson.dev.domain.DiscountProcess;
 import com.ericsson.dev.repository.DiscountProcessRepository;
 import com.ericsson.dev.repository.search.DiscountProcessSearchRepository;
+import com.ericsson.dev.service.OracleConnection;
 import com.ericsson.dev.service.PlanDiscountService;
 import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
@@ -64,44 +65,56 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
         return result;
     }
 
+    @Override
     public List<String> getDiscountsSQL(DiscountProcess discountProcess) {
         if (customerPlans == null) {
-            customerPlans = bscsDataService.getCustomerPlans();
+            OracleConnection connection = new OracleConnection(discountProcess.getEnvironment().getUrl(), discountProcess.getEnvironment().getUser(), discountProcess.getEnvironment().getPass());
+            customerPlans = bscsDataService.getCustomerPlans(connection);
         }
         List<String> discountSQLs = new ArrayList<>();
         for (String cuenta : customerPlans.keySet()) {
             List<Discounts> discountsList = getPlansToDiscount(cuenta);
+            //Sort by price asc
             discountsList.sort(new Discounts.SortByPrice());
+            //Removing from discounts the plan with highest value
+            discountsList = discountsList.subList(0, discountsList.size() - 1);
+            //If customer is not whilisted (may apply infinites discounts)
             if (!customerStateRepository.findByCuentaAndWhiteListTrue(cuenta).isPresent()) {
-                discountsList = discountsList.subList(0, discountProcess.getQuantity());
+                //If max discount applicable is greater than current discountable plans
+                if (discountProcess.getQuantity() < discountsList.size()) {
+                    discountsList = discountsList.subList(0, discountProcess.getQuantity());
+                }
             }
             for (Discounts discount : discountsList) {
-                discount.setPercentage(planDiscountService.getDiscountPercentage(discount.getPlanName(), discountsList.indexOf(discount) + 1));
+                Double discountPercentage = planDiscountService.getDiscountPercentage(discount.getPlanName(), discountsList.indexOf(discount) + 1);
+                if (discountPercentage != null) {
+                    discount.setPercentage(planDiscountService.getDiscountPercentage(discount.getPlanName(), discountsList.indexOf(discount) + 1));
+                    discount.setFactor(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                    discountSQLs.add(generateCustomerDiscounts(discount));
+                }
             }
-            discountSQLs.addAll(generateCustomerDiscounts(discountsList));
         }
         return discountSQLs;
     }
 
-    public List<String> generateCustomerDiscounts(List<Discounts> discountsList) {
-        List<String> discountSQLs = new ArrayList<>();
-        for (Discounts discounts : discountsList) {
-
-        }
-        String singleDiscount = "";
-        discountSQLs.add(singleDiscount);
-        return discountSQLs;
+    @Override
+    public String generateCustomerDiscounts(Discounts discount) {
+        float discountAmount = (float) (discount.getPrice() * discount.getPercentage() / 100 / discount.getFactor());
+        String singleDiscount = "INSERT INTO FODASE " + " VALUES (" + discountAmount + ")";
+        return singleDiscount;
     }
 
+    @Override
     public List<Discounts> getPlansToDiscount(String cuenta) {
         List<Discounts> result = new ArrayList<>();
-        if (customerStateRepository.findByCuentaAndBlackListFalse(cuenta).isPresent()) {
+        if (!customerStateRepository.findByCuentaAndBlackListTrue(cuenta).isPresent()) {
             List<HashMap> plans = customerPlans.get(cuenta);
             for (HashMap planInfo : plans) {
                 Discounts discounts = new Discounts();
                 discounts.setCuenta(cuenta);
                 discounts.setPlanName(planInfo.get("NOMBRE_PLANO").toString());
                 discounts.setPrice(Float.parseFloat(planInfo.get("PRECIO_MESUAL").toString()));
+                result.add(discounts);
             }
         }
         return result;

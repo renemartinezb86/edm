@@ -21,7 +21,7 @@ public class BSCSDataService implements InitializingBean {
         this.oracleConnection = oracleConnection;
     }
 
-    public HashMap<String, List<HashMap>> getCustomerPlans() {
+    public HashMap<String, List<HashMap>> getCustomerPlans(OracleConnection connection) {
         String query = "select o.customer_id CUENTA, o.co_id CONTRATO, o.co_code CO_CODE, c.lbc_date FECHA_ULTIMO_FACTURAMENTO, c.CSACTIVATED DECHA_ACTIVACION, sh.status ESTADO_SERVICIO\n" +
             ",      sh.valid_from_date FECHA_SERVICIO, o.tmcode PLANO, xn.sncode SERVICIO, ph.spcode PAQUETE, sp.DES NOMBRE_PLANO, sp.EXTERNAL_SERVICE_PACKAGE_NAME\n" +
             ",      xn.CFS_SPECIFICATION_ID, xn.RFS_SPECIFICATION_ID, xn.POP_ID, tmb.accessfee PRECIO_MESUAL\n" +
@@ -58,14 +58,15 @@ public class BSCSDataService implements InitializingBean {
             "and    xn.sncode = tmb.sncode\n" +
             "and    xn.spcode = tmb.spcode\n" +
             "and    tmb.accessfee > 0\n" +
-            ";";
+            "and    o.customer_id in (15854406, 15846368)";
         try {
-            PreparedStatement ps = oracleConnection.getConnection().prepareStatement(query);
+            PreparedStatement ps = connection.getConnection().prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             HashMap result = resultSetToHashMap(rs, "CUENTA");
             ps.close();
             return result;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

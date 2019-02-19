@@ -6,6 +6,20 @@ public class Discounts {
     private String planName;
     private String rut;
     private String cuenta;
+    private String contrato;
+    private int position;
+    private double price;
+    private double percentage;
+    private int factor;
+    private boolean newCycle;
+
+    public boolean isNewCycle() {
+        return newCycle;
+    }
+
+    public void setNewCycle(boolean newCycle) {
+        this.newCycle = newCycle;
+    }
 
     public String getCuenta() {
         return cuenta;
@@ -23,11 +37,6 @@ public class Discounts {
         this.contrato = contrato;
     }
 
-    private String contrato;
-    private int position;
-    private double price;
-    private double percentage;
-    private int factor;
 
     public String getPlanName() {
         return planName;

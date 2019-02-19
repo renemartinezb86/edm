@@ -2,9 +2,11 @@ package com.ericsson.dev.service;
 
 import com.ericsson.dev.domain.DiscountProcess;
 
+import com.ericsson.dev.domain.Discounts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -37,6 +39,12 @@ public interface DiscountProcessService {
      */
     Optional<DiscountProcess> findOne(String id);
 
+    List<String> getDiscountsSQL(DiscountProcess discountProcess);
+
+    String generateCustomerDiscounts(Discounts discount);
+
+    List<Discounts> getPlansToDiscount(String cuenta);
+
     /**
      * Delete the "id" discountProcess.
      *
@@ -47,8 +55,7 @@ public interface DiscountProcessService {
     /**
      * Search for the discountProcess corresponding to the query.
      *
-     * @param query the query of the search
-     * 
+     * @param query    the query of the search
      * @param pageable the pagination information
      * @return the list of entities
      */
