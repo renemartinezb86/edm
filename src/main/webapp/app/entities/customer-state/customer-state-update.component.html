@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-customer-state-heading" jhiTranslate="edmApp.customerState.home.createOrEditLabel">Create or edit a Customer State</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!customerState.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="customerState.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.rut" for="field_rut">Rut</label>
+                    <input type="text" class="form-control" name="rut" id="field_rut"
+                        [(ngModel)]="customerState.rut" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.active" for="field_active">Active</label>
+                    <input type="checkbox" class="form-control" name="active" id="field_active"
+                        [(ngModel)]="customerState.active" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.blackList" for="field_blackList">Black List</label>
+                    <input type="checkbox" class="form-control" name="blackList" id="field_blackList"
+                        [(ngModel)]="customerState.blackList" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="edmApp.customerState.whiteList" for="field_whiteList">White List</label>
+                    <input type="checkbox" class="form-control" name="whiteList" id="field_whiteList"
+                        [(ngModel)]="customerState.whiteList" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

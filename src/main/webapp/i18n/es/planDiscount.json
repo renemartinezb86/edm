@@ -1,0 +1,25 @@
+{
+    "edmApp": {
+        "planDiscount": {
+            "home": {
+                "title": "Plan Discounts",
+                "createLabel": "Crear nuevo Plan Discount",
+                "createOrEditLabel": "Crear o editar Plan Discount",
+                "search": "Search for Plan Discount"
+            },
+            "created": "Un nuevo Plan Discount ha sido creado con el identificador {{ param }}",
+            "updated": "Un Plan Discount ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Plan Discount ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Plan Discount {{ id }}?"
+            },
+            "detail": {
+                "title": "Plan Discount"
+            },
+            "name": "Name",
+            "position": "Position",
+            "discountPercentage": "Discount Percentage",
+            "active": "Active"
+        }
+    }
+}

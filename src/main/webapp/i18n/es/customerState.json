@@ -1,0 +1,25 @@
+{
+    "edmApp": {
+        "customerState": {
+            "home": {
+                "title": "Customer States",
+                "createLabel": "Crear nuevo Customer State",
+                "createOrEditLabel": "Crear o editar Customer State",
+                "search": "Search for Customer State"
+            },
+            "created": "Un nuevo Customer State ha sido creado con el identificador {{ param }}",
+            "updated": "Un Customer State ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Customer State ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Customer State {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer State"
+            },
+            "rut": "Rut",
+            "active": "Active",
+            "blackList": "Black List",
+            "whiteList": "White List"
+        }
+    }
+}

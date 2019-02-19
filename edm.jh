@@ -1,0 +1,24 @@
+entity DiscountProcess {
+	quantity Integer,
+    dateToProcess Instant,
+    createdDate Instant,
+    sqlFilePath String
+}
+
+entity CustomerState {
+	rut String,
+    active Boolean,
+    blackList Boolean,
+    whiteList Boolean
+}
+
+entity PlanDiscount {
+	name String,
+    position Integer,
+    discountPercentage Double,
+    active Boolean
+}
+
+service all with serviceImpl
+paginate * with pager
+filter *
