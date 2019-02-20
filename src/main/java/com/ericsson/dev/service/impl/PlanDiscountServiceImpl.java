@@ -63,7 +63,7 @@ public class PlanDiscountServiceImpl implements PlanDiscountService {
     public Double getDiscountPercentage(String name, Integer position) {
         Optional<PlanDiscount> planDiscount = planDiscountRepository.findByNameAndPositionAndActiveTrue(name, 0);
         if (planDiscount.isPresent()) {
-            return planDiscountRepository.findByNameAndPositionAndActiveTrue(name, 0).get().getDiscountPercentage();
+            return planDiscount.get().getDiscountPercentage();
         }
         planDiscount = planDiscountRepository.findByNameAndPositionAndActiveTrue(name, position);
         if (planDiscount.isPresent()) {

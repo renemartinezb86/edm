@@ -1,6 +1,7 @@
 package com.ericsson.dev.domain;
 
 import java.util.Comparator;
+import java.util.Date;
 
 public class Discounts {
     private String planName;
@@ -12,6 +13,16 @@ public class Discounts {
     private double percentage;
     private int factor;
     private boolean newCycle;
+
+    public Date getLastBillDate() {
+        return lastBillDate;
+    }
+
+    public void setLastBillDate(Date lastBillDate) {
+        this.lastBillDate = lastBillDate;
+    }
+
+    private Date lastBillDate;
 
     public boolean isNewCycle() {
         return newCycle;

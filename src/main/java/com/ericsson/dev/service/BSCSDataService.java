@@ -81,7 +81,11 @@ public class BSCSDataService implements InitializingBean {
         while (rs.next()) {
             for (int i = 1; i <= columns; i++) {
                 if (rs.getObject(i) != null) {
-                    row.put(md.getColumnName(i), rs.getObject(i).toString().toLowerCase());
+                    if (md.getColumnName(i).equalsIgnoreCase("FECHA_ULTIMO_FACTURAMENTO")) {
+                        row.put(md.getColumnName(i), rs.getDate(i));
+                    } else {
+                        row.put(md.getColumnName(i), rs.getObject(i).toString());
+                    }
                 } else {
                     row.put(md.getColumnName(i), "");
                 }

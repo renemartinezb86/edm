@@ -19,6 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
 import java.util.*;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -89,7 +94,9 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
                 Double discountPercentage = planDiscountService.getDiscountPercentage(discount.getPlanName(), discountsList.indexOf(discount) + 1);
                 if (discountPercentage != null) {
                     discount.setPercentage(planDiscountService.getDiscountPercentage(discount.getPlanName(), discountsList.indexOf(discount) + 1));
-                    discount.setFactor(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+                    LocalDateTime ldt1 = LocalDateTime.ofInstant(discountProcess.getDateToProcess(), ZoneId.systemDefault());
+                    YearMonth yearMonthObject = YearMonth.of(ldt1.getYear(), ldt1.getMonth());
+                    discount.setFactor(yearMonthObject.lengthOfMonth());
                     discountSQLs.add(generateCustomerDiscounts(discount));
                 }
             }
@@ -110,8 +117,10 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
         if (!customerStateRepository.findByCuentaAndBlackListTrue(cuenta).isPresent()) {
             List<HashMap> plans = customerPlans.get(cuenta);
             for (HashMap planInfo : plans) {
+                Date lastBillDate = (Date) planInfo.get("FECHA_ULTIMO_FACTURAMENTO");
                 Discounts discounts = new Discounts();
                 discounts.setCuenta(cuenta);
+                discounts.setLastBillDate(lastBillDate);
                 discounts.setPlanName(planInfo.get("NOMBRE_PLANO").toString());
                 discounts.setPrice(Float.parseFloat(planInfo.get("PRECIO_MESUAL").toString()));
                 result.add(discounts);
