@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
@@ -72,8 +73,8 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
 
     @Override
     public List<String> getDiscountsSQL(DiscountProcess discountProcess) {
+        OracleConnection connection = new OracleConnection(discountProcess.getEnvironment().getUrl(), discountProcess.getEnvironment().getUser(), discountProcess.getEnvironment().getPass());
         if (customerPlans == null) {
-            OracleConnection connection = new OracleConnection(discountProcess.getEnvironment().getUrl(), discountProcess.getEnvironment().getUser(), discountProcess.getEnvironment().getPass());
             customerPlans = bscsDataService.getCustomerPlans(connection);
         }
         List<String> discountSQLs = new ArrayList<>();
@@ -97,17 +98,37 @@ public class DiscountProcessServiceImpl implements DiscountProcessService {
                     LocalDateTime ldt1 = LocalDateTime.ofInstant(discountProcess.getDateToProcess(), ZoneId.systemDefault());
                     YearMonth yearMonthObject = YearMonth.of(ldt1.getYear(), ldt1.getMonth());
                     discount.setFactor(yearMonthObject.lengthOfMonth());
-                    discountSQLs.add(generateCustomerDiscounts(discount));
+                    discountSQLs.add(generateCustomerDiscounts(discount, discountProcess.getDateToProcess()));
                 }
             }
+        }
+        try {
+            bscsDataService.executeBatch(connection, discountSQLs);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return discountSQLs;
     }
 
     @Override
-    public String generateCustomerDiscounts(Discounts discount) {
+    public String generateCustomerDiscounts(Discounts discount, Instant dateToProcess) {
         float discountAmount = (float) (discount.getPrice() * discount.getPercentage() / 100 / discount.getFactor());
-        String singleDiscount = "INSERT INTO FODASE " + " VALUES (" + discountAmount + ")";
+        String singleDiscount = "";
+        if (discount.getLastBillDate().after(Date.from(dateToProcess))) {
+            singleDiscount = "update fees\n" +
+                "set    amount = " + discountAmount + "\n" +
+                "where  customer_id = " + discount.getCuenta() + "\n" +
+                "and    co_id = " + discount.getContrato() + "\n" +
+                "and    seqno = (select MAX_FEES_SEQ.currtval from dual)\n" +
+                "and    period = 1;\n";
+        } else {
+            singleDiscount = "insert into fees \n" +
+                "values\n" +
+                "( " + discount.getCuenta() + ", (select MAX_FEES_SEQ.nextval from dual), 'R', " + discountAmount + ", pendiente definicion, null, sysdate, 1, 'SYSADM', sysdate, null, null, pendiente definicion\n" +
+                ", pendiente definicion, pendiente definicion, v_co_id, null, 44, null, null, null, null, 0, null, null, null, null, 3, (select max(vscode) from rateplan_version where tmcode = 3)\n" +
+                ", pendiente definicion, pendiente definicion, pendiente definicion, 3, null, null, null, null, null, null, null, null, null, null, null, null, " + discount.getCuenta() + ", null, 1, null, null\n" +
+                ", 0, null, null, null, null, null);\n";
+        }
         return singleDiscount;
     }
 

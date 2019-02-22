@@ -59,6 +59,7 @@ public class DiscountProcessResource {
         long timeStampSeconds = instant.getEpochSecond();
         discountProcess.setCreatedDate(instant);
         List<String> sqlList = discountProcessService.getDiscountsSQL(discountProcess);
+
         String fileName = "DiscountsSQLs_" + instant.toString() + ".sql";
         DiscountProcess result = discountProcessService.save(discountProcess);
         return ResponseEntity.created(new URI("/api/discount-processes/" + result.getId()))

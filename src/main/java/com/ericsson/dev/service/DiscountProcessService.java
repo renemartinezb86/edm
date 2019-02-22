@@ -6,6 +6,7 @@ import com.ericsson.dev.domain.Discounts;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +42,7 @@ public interface DiscountProcessService {
 
     List<String> getDiscountsSQL(DiscountProcess discountProcess);
 
-    String generateCustomerDiscounts(Discounts discount);
+    String generateCustomerDiscounts(Discounts discount, Instant dateToProcess);
 
     List<Discounts> getPlansToDiscount(String cuenta);
 

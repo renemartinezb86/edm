@@ -3,17 +3,14 @@ package com.ericsson.dev.service;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 /**
  * Created by ezmarre on 02/19/2019.
  */
 @Service
-public class BSCSDataService implements InitializingBean {
+public class BSCSDataService {
 
     private final OracleConnection oracleConnection;
 
@@ -71,6 +68,18 @@ public class BSCSDataService implements InitializingBean {
         }
     }
 
+    public void executeBatch(OracleConnection connection, List<String> discountSQLs) throws SQLException {
+        Connection conn = connection.getConnection();
+        Statement statement = conn.createStatement();
+        for (String sql : discountSQLs) {
+            //statement.addBatch(sql);
+            statement.execute(sql);
+        }
+        //statement.executeBatch();
+        statement.close();
+        conn.close();
+    }
+
     public HashMap<String, List<HashMap>> resultSetToHashMap(ResultSet rs, String fieldId) throws SQLException {
 
         ResultSetMetaData md = rs.getMetaData();
@@ -98,28 +107,5 @@ public class BSCSDataService implements InitializingBean {
             row = new HashMap();
         }
         return result;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        BSCSDataService bscsDataService = new BSCSDataService(new OracleConnection("jdbc:oracle:thin:@10.49.4.46:1530/EBSCSD01.tdenopcl.internal", "SYSADM", "SYSADM"));
-        //        List<String> poList = ecmDataService.getPoList();
-        //        for (String po : poList
-        //            ) {
-        //            System.out.println(ecmDataService.getActiveCharacteristicsByPOWithNameAsId(po));
-        //        }
-        //        for (String po : poList
-        //            ) {
-        //            System.out.println(po);
-        //            ecmDataService.getRelationsByPO(po);
-        //        }
-        //     ecmDataService.getRelationsByPO("PO_POS_O_SS_MM_CCAP");
-        //ecmDataService.getActiveCharacteristicsByPOWithNameAsId("PO_POS_A_BOLSA_15DIAS_500MB_BAL");
-        //bscsDataService.getActivePoList();
-        //bscsDataService.getActiveTemplates();
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        //getPoList();
     }
 }
