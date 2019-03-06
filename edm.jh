@@ -9,7 +9,9 @@ entity DiscountProcess {
 	quantity Integer,
     dateToProcess Instant,
     createdDate Instant,
-    sqlFilePath String
+    sqlFilePath String,
+    csvFilePath String,
+    operador String
 }
 
 entity CustomerState {
