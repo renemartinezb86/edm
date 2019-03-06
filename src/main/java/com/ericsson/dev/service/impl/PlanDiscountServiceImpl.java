@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -59,19 +58,6 @@ public class PlanDiscountServiceImpl implements PlanDiscountService {
         return planDiscountRepository.findAll(pageable);
     }
 
-    @Override
-    public Double getDiscountPercentage(String name, Integer position) {
-        Optional<PlanDiscount> planDiscount = planDiscountRepository.findByNameAndPositionAndActiveTrue(name, 0);
-        if (planDiscount.isPresent()) {
-            return planDiscount.get().getDiscountPercentage();
-        }
-        planDiscount = planDiscountRepository.findByNameAndPositionAndActiveTrue(name, position);
-        if (planDiscount.isPresent()) {
-            return planDiscount.get().getDiscountPercentage();
-        } else {
-            return null;
-        }
-    }
 
     /**
      * Get one planDiscount by id.
@@ -100,13 +86,12 @@ public class PlanDiscountServiceImpl implements PlanDiscountService {
     /**
      * Search for the planDiscount corresponding to the query.
      *
-     * @param query    the query of the search
+     * @param query the query of the search
      * @param pageable the pagination information
      * @return the list of entities
      */
     @Override
     public Page<PlanDiscount> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of PlanDiscounts for query {}", query);
-        return planDiscountSearchRepository.search(queryStringQuery(query), pageable);
-    }
+        return planDiscountSearchRepository.search(queryStringQuery(query), pageable);    }
 }

@@ -16,15 +16,23 @@
         {
             "fieldName": "sqlFilePath",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "csvFilePath",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "operador",
+            "fieldType": "String"
         }
     ],
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "environment",
             "otherEntityName": "environment",
-            "otherEntityField": "name",
-            "otherEntityRelationshipName": "discountProcess"
+            "otherEntityRelationshipName": "discountProcess",
+            "relationshipName": "environment",
+            "otherEntityField": "name"
         }
     ],
     "changelogDate": "20190219005542",

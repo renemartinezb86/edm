@@ -1,33 +1,24 @@
 package com.ericsson.dev.web.rest;
-
 import com.ericsson.dev.domain.DiscountProcess;
 import com.ericsson.dev.service.DiscountProcessService;
-import com.ericsson.dev.service.StorageService;
 import com.ericsson.dev.web.rest.errors.BadRequestAlertException;
 import com.ericsson.dev.web.rest.util.HeaderUtil;
 import com.ericsson.dev.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -45,40 +36,8 @@ public class DiscountProcessResource {
 
     private final DiscountProcessService discountProcessService;
 
-    @Autowired
-    private StorageService storageService;
-
-    List<String> files = new ArrayList<String>();
-
     public DiscountProcessResource(DiscountProcessService discountProcessService) {
         this.discountProcessService = discountProcessService;
-    }
-
-    @PostMapping("/discount-processes/fileUpload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-        String message = "";
-        try {
-            storageService.store(file);
-            files.add(file.getOriginalFilename());
-
-            message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.OK).header(ENTITY_NAME, message).body(message);
-        } catch (Exception e) {
-            message =
-                "FAIL to upload " + file.getOriginalFilename() + ": the field already exists!";
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .header(ENTITY_NAME, message).body(message);
-        }
-    }
-
-    @GetMapping("/discount-processes/getAllfiles")
-    public ResponseEntity<List<String>> getListFiles(Model model) {
-        List<String> fileNames = files
-            .stream().map(fileName -> MvcUriComponentsBuilder
-                .fromMethodName(DiscountProcessResource.class, "getFile", fileName).build().toString())
-            .collect(Collectors.toList());
-
-        return ResponseEntity.ok().body(fileNames);
     }
 
     /**
@@ -94,13 +53,6 @@ public class DiscountProcessResource {
         if (discountProcess.getId() != null) {
             throw new BadRequestAlertException("A new discountProcess cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Instant instant = Instant.now();
-        long timeStampSeconds = instant.getEpochSecond();
-        discountProcess.setCreatedDate(instant);
-        //Add condition if the discount will be file based.
-        //List<String> sqlList = discountProcessService.getDiscountsSQL(discountProcess);
-
-        String fileName = "DiscountsSQLs_" + instant.toString() + ".sql";
         DiscountProcess result = discountProcessService.save(discountProcess);
         return ResponseEntity.created(new URI("/api/discount-processes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -172,7 +124,7 @@ public class DiscountProcessResource {
      * SEARCH  /_search/discount-processes?query=:query : search for the discountProcess corresponding
      * to the query.
      *
-     * @param query    the query of the discountProcess search
+     * @param query the query of the discountProcess search
      * @param pageable the pagination information
      * @return the result of the search
      */

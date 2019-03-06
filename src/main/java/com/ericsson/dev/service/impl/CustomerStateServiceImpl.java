@@ -78,7 +78,8 @@ public class CustomerStateServiceImpl implements CustomerStateService {
      */
     @Override
     public void delete(String id) {
-        log.debug("Request to delete CustomerState : {}", id);        customerStateRepository.deleteById(id);
+        log.debug("Request to delete CustomerState : {}", id);
+        customerStateRepository.deleteById(id);
         customerStateSearchRepository.deleteById(id);
     }
 

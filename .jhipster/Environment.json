@@ -21,9 +21,9 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "discountProcess",
             "otherEntityName": "discountProcess",
-            "otherEntityRelationshipName": "environment"
+            "otherEntityRelationshipName": "environment",
+            "relationshipName": "discountProcess"
         }
     ],
     "changelogDate": "20190219124742",

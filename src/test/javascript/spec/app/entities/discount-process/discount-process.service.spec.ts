@@ -25,7 +25,7 @@ describe('Service Tests', () => {
             httpMock = injector.get(HttpTestingController);
             currentDate = moment();
 
-            elemDefault = new DiscountProcess('ID', 0, currentDate, currentDate, 'AAAAAAA');
+            elemDefault = new DiscountProcess('ID', 0, currentDate, currentDate, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -76,7 +76,9 @@ describe('Service Tests', () => {
                         quantity: 1,
                         dateToProcess: currentDate.format(DATE_TIME_FORMAT),
                         createdDate: currentDate.format(DATE_TIME_FORMAT),
-                        sqlFilePath: 'BBBBBB'
+                        sqlFilePath: 'BBBBBB',
+                        csvFilePath: 'BBBBBB',
+                        operador: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -102,7 +104,9 @@ describe('Service Tests', () => {
                         quantity: 1,
                         dateToProcess: currentDate.format(DATE_TIME_FORMAT),
                         createdDate: currentDate.format(DATE_TIME_FORMAT),
-                        sqlFilePath: 'BBBBBB'
+                        sqlFilePath: 'BBBBBB',
+                        csvFilePath: 'BBBBBB',
+                        operador: 'BBBBBB'
                     },
                     elemDefault
                 );

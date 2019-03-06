@@ -20,6 +20,8 @@
             "dateToProcess": "Date To Process",
             "createdDate": "Created Date",
             "sqlFilePath": "Sql File Path",
+            "csvFilePath": "Csv File Path",
+            "operador": "Operador",
             "environment": "Environment"
         }
     }
