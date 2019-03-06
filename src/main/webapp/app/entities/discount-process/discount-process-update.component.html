@@ -9,18 +9,18 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="discountProcess.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="edmApp.discountProcess.quantity" for="field_quantity">Quantity</label>
-                    <input type="number" class="form-control" name="quantity" id="field_quantity"
-                        [(ngModel)]="discountProcess.quantity" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="edmApp.discountProcess.dateToProcess" for="field_dateToProcess">Date To Process</label>
-                    <div class="d-flex">
-                        <input id="field_dateToProcess" type="date" class="form-control" name="dateToProcess" [(ngModel)]="dateToProcess" placeholder="YYYY-MM-DD"
-                        />
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="edmApp.discountProcess.quantity" for="field_quantity">Quantity</label>-->
+                    <!--<input type="number" class="form-control" name="quantity" id="field_quantity"-->
+                        <!--[(ngModel)]="discountProcess.quantity" />-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="edmApp.discountProcess.dateToProcess" for="field_dateToProcess">Date To Process</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_dateToProcess" type="date" class="form-control" name="dateToProcess" [(ngModel)]="dateToProcess" placeholder="YYYY-MM-DD"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!--<div class="form-group">-->
                     <!--<label class="form-control-label" jhiTranslate="edmApp.discountProcess.createdDate" for="field_createdDate">Created Date</label>-->
                     <!--<div class="d-flex">-->
@@ -28,11 +28,11 @@
                         <!--/>-->
                     <!--</div>-->
                 <!--</div>-->
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="edmApp.discountProcess.sqlFilePath" for="field_sqlFilePath">Sql File Path</label>
-                    <input type="text" class="form-control" name="sqlFilePath" id="field_sqlFilePath"
-                        [(ngModel)]="discountProcess.sqlFilePath" />
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" jhiTranslate="edmApp.discountProcess.sqlFilePath" for="field_sqlFilePath">Sql File Path</label>-->
+                    <!--<input type="text" class="form-control" name="sqlFilePath" id="field_sqlFilePath"-->
+                        <!--[(ngModel)]="discountProcess.sqlFilePath" />-->
+                <!--</div>-->
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="edmApp.discountProcess.environment" for="field_environment">Environment</label>
@@ -41,6 +41,21 @@
                         <option [ngValue]="environmentOption.id === discountProcess.environment?.id ? discountProcess.environment : environmentOption" *ngFor="let environmentOption of environments; trackBy: trackEnvironmentById">{{environmentOption.name}}</option>
                     </select>
                 </div>
+
+                <a href="{{fileUpload}}">{{fileUpload}}</a>
+
+                <div *ngIf="currentFileUpload" class="progress">
+                    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                         aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{progress.percentage}}%</div>
+                </div>
+
+                <label class="btn btn-default">
+                    <input type="file" (change)="selectFile($event)">
+                </label>
+
+                <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
