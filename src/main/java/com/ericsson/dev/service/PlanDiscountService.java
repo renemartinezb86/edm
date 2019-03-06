@@ -28,7 +28,7 @@ public interface PlanDiscountService {
      */
     Page<PlanDiscount> findAll(Pageable pageable);
 
-    Double getDiscountPercentage (String name, Integer position);
+
     /**
      * Get the "id" planDiscount.
      *

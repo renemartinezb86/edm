@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
@@ -16,8 +16,6 @@ type EntityArrayResponseType = HttpResponse<IDiscountProcess[]>;
 export class DiscountProcessService {
     public resourceUrl = SERVER_API_URL + 'api/discount-processes';
     public resourceSearchUrl = SERVER_API_URL + 'api/_search/discount-processes';
-    public fileUploadUrl = SERVER_API_URL + 'api/discount-processes/fileUpload';
-    public getFileUrl = SERVER_API_URL + 'api/discount-processes/getAllfiles';
 
     constructor(protected http: HttpClient) {}
 
@@ -26,22 +24,6 @@ export class DiscountProcessService {
         return this.http
             .post<IDiscountProcess>(this.resourceUrl, copy, { observe: 'response' })
             .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-    }
-    pushFileToStorage(file: File): Observable<HttpEvent<{}>> {
-        const formdata: FormData = new FormData();
-
-        formdata.append('file', file);
-
-        const req = new HttpRequest('POST', this.fileUploadUrl, formdata, {
-            reportProgress: true,
-            responseType: 'text'
-        });
-
-        return this.http.request(req);
-    }
-
-    getFiles(): Observable<any> {
-        return this.http.get(this.getFileUrl);
     }
 
     update(discountProcess: IDiscountProcess): Observable<EntityResponseType> {

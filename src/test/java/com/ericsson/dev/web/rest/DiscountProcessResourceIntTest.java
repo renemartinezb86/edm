@@ -59,6 +59,12 @@ public class DiscountProcessResourceIntTest {
     private static final String DEFAULT_SQL_FILE_PATH = "AAAAAAAAAA";
     private static final String UPDATED_SQL_FILE_PATH = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CSV_FILE_PATH = "AAAAAAAAAA";
+    private static final String UPDATED_CSV_FILE_PATH = "BBBBBBBBBB";
+
+    private static final String DEFAULT_OPERADOR = "AAAAAAAAAA";
+    private static final String UPDATED_OPERADOR = "BBBBBBBBBB";
+
     @Autowired
     private DiscountProcessRepository discountProcessRepository;
 
@@ -112,7 +118,9 @@ public class DiscountProcessResourceIntTest {
             .quantity(DEFAULT_QUANTITY)
             .dateToProcess(DEFAULT_DATE_TO_PROCESS)
             .createdDate(DEFAULT_CREATED_DATE)
-            .sqlFilePath(DEFAULT_SQL_FILE_PATH);
+            .sqlFilePath(DEFAULT_SQL_FILE_PATH)
+            .csvFilePath(DEFAULT_CSV_FILE_PATH)
+            .operador(DEFAULT_OPERADOR);
         return discountProcess;
     }
 
@@ -140,6 +148,8 @@ public class DiscountProcessResourceIntTest {
         assertThat(testDiscountProcess.getDateToProcess()).isEqualTo(DEFAULT_DATE_TO_PROCESS);
         assertThat(testDiscountProcess.getCreatedDate()).isEqualTo(DEFAULT_CREATED_DATE);
         assertThat(testDiscountProcess.getSqlFilePath()).isEqualTo(DEFAULT_SQL_FILE_PATH);
+        assertThat(testDiscountProcess.getCsvFilePath()).isEqualTo(DEFAULT_CSV_FILE_PATH);
+        assertThat(testDiscountProcess.getOperador()).isEqualTo(DEFAULT_OPERADOR);
 
         // Validate the DiscountProcess in Elasticsearch
         verify(mockDiscountProcessSearchRepository, times(1)).save(testDiscountProcess);
@@ -179,7 +189,9 @@ public class DiscountProcessResourceIntTest {
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].dateToProcess").value(hasItem(DEFAULT_DATE_TO_PROCESS.toString())))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
-            .andExpect(jsonPath("$.[*].sqlFilePath").value(hasItem(DEFAULT_SQL_FILE_PATH.toString())));
+            .andExpect(jsonPath("$.[*].sqlFilePath").value(hasItem(DEFAULT_SQL_FILE_PATH.toString())))
+            .andExpect(jsonPath("$.[*].csvFilePath").value(hasItem(DEFAULT_CSV_FILE_PATH.toString())))
+            .andExpect(jsonPath("$.[*].operador").value(hasItem(DEFAULT_OPERADOR.toString())));
     }
     
     @Test
@@ -195,7 +207,9 @@ public class DiscountProcessResourceIntTest {
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.dateToProcess").value(DEFAULT_DATE_TO_PROCESS.toString()))
             .andExpect(jsonPath("$.createdDate").value(DEFAULT_CREATED_DATE.toString()))
-            .andExpect(jsonPath("$.sqlFilePath").value(DEFAULT_SQL_FILE_PATH.toString()));
+            .andExpect(jsonPath("$.sqlFilePath").value(DEFAULT_SQL_FILE_PATH.toString()))
+            .andExpect(jsonPath("$.csvFilePath").value(DEFAULT_CSV_FILE_PATH.toString()))
+            .andExpect(jsonPath("$.operador").value(DEFAULT_OPERADOR.toString()));
     }
 
     @Test
@@ -220,7 +234,9 @@ public class DiscountProcessResourceIntTest {
             .quantity(UPDATED_QUANTITY)
             .dateToProcess(UPDATED_DATE_TO_PROCESS)
             .createdDate(UPDATED_CREATED_DATE)
-            .sqlFilePath(UPDATED_SQL_FILE_PATH);
+            .sqlFilePath(UPDATED_SQL_FILE_PATH)
+            .csvFilePath(UPDATED_CSV_FILE_PATH)
+            .operador(UPDATED_OPERADOR);
 
         restDiscountProcessMockMvc.perform(put("/api/discount-processes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -235,6 +251,8 @@ public class DiscountProcessResourceIntTest {
         assertThat(testDiscountProcess.getDateToProcess()).isEqualTo(UPDATED_DATE_TO_PROCESS);
         assertThat(testDiscountProcess.getCreatedDate()).isEqualTo(UPDATED_CREATED_DATE);
         assertThat(testDiscountProcess.getSqlFilePath()).isEqualTo(UPDATED_SQL_FILE_PATH);
+        assertThat(testDiscountProcess.getCsvFilePath()).isEqualTo(UPDATED_CSV_FILE_PATH);
+        assertThat(testDiscountProcess.getOperador()).isEqualTo(UPDATED_OPERADOR);
 
         // Validate the DiscountProcess in Elasticsearch
         verify(mockDiscountProcessSearchRepository, times(1)).save(testDiscountProcess);
@@ -294,7 +312,9 @@ public class DiscountProcessResourceIntTest {
             .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
             .andExpect(jsonPath("$.[*].dateToProcess").value(hasItem(DEFAULT_DATE_TO_PROCESS.toString())))
             .andExpect(jsonPath("$.[*].createdDate").value(hasItem(DEFAULT_CREATED_DATE.toString())))
-            .andExpect(jsonPath("$.[*].sqlFilePath").value(hasItem(DEFAULT_SQL_FILE_PATH)));
+            .andExpect(jsonPath("$.[*].sqlFilePath").value(hasItem(DEFAULT_SQL_FILE_PATH)))
+            .andExpect(jsonPath("$.[*].csvFilePath").value(hasItem(DEFAULT_CSV_FILE_PATH)))
+            .andExpect(jsonPath("$.[*].operador").value(hasItem(DEFAULT_OPERADOR)));
     }
 
     @Test

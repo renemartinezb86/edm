@@ -35,6 +35,12 @@ public class DiscountProcess implements Serializable {
     @Field("sql_file_path")
     private String sqlFilePath;
 
+    @Field("csv_file_path")
+    private String csvFilePath;
+
+    @Field("operador")
+    private String operador;
+
     @DBRef
     @Field("environment")
     @JsonIgnoreProperties("discountProcesses")
@@ -101,6 +107,32 @@ public class DiscountProcess implements Serializable {
         this.sqlFilePath = sqlFilePath;
     }
 
+    public String getCsvFilePath() {
+        return csvFilePath;
+    }
+
+    public DiscountProcess csvFilePath(String csvFilePath) {
+        this.csvFilePath = csvFilePath;
+        return this;
+    }
+
+    public void setCsvFilePath(String csvFilePath) {
+        this.csvFilePath = csvFilePath;
+    }
+
+    public String getOperador() {
+        return operador;
+    }
+
+    public DiscountProcess operador(String operador) {
+        this.operador = operador;
+        return this;
+    }
+
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
+
     public Environment getEnvironment() {
         return environment;
     }
@@ -143,6 +175,8 @@ public class DiscountProcess implements Serializable {
             ", dateToProcess='" + getDateToProcess() + "'" +
             ", createdDate='" + getCreatedDate() + "'" +
             ", sqlFilePath='" + getSqlFilePath() + "'" +
+            ", csvFilePath='" + getCsvFilePath() + "'" +
+            ", operador='" + getOperador() + "'" +
             "}";
     }
 }

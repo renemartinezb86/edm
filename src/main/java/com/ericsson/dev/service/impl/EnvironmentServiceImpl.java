@@ -78,7 +78,8 @@ public class EnvironmentServiceImpl implements EnvironmentService {
      */
     @Override
     public void delete(String id) {
-        log.debug("Request to delete Environment : {}", id);        environmentRepository.deleteById(id);
+        log.debug("Request to delete Environment : {}", id);
+        environmentRepository.deleteById(id);
         environmentSearchRepository.deleteById(id);
     }
 
